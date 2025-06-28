@@ -13,6 +13,7 @@ def format_temperature(temp):
     Returns:
         A string contain the temperature and "degrees Celcius."
     """
+    DEGREE_SYMBOL = "\u00b0"
     return f"{temp}{DEGREE_SYMBOL}"
 
 
@@ -24,7 +25,9 @@ def convert_date(iso_string):
     Returns:
         A date formatted like: Weekday Date Month Year e.g. Tuesday 06 July 2021
     """
-    pass
+    print(iso_string)
+    date = ""
+    return date
 
 
 def convert_f_to_c(temp_in_fahrenheit):
@@ -69,7 +72,22 @@ def find_min(weather_data):
     Returns:
         The minimum value and it's position in the list. (In case of multiple matches, return the index of the *last* example in the list.)
     """
-    pass
+    minimum_index = 0
+    
+    if bool(weather_data):
+        minimum_value = float(weather_data[0])
+        index = 0
+    
+        for item in weather_data:
+            if float(item) <= float(minimum_value):
+                minimum_value = round(float(item), 1)
+                minimum_index = index
+            index += 1
+        return (minimum_value, minimum_index)
+    else:
+        minimum_value = ()
+        return minimum_value
+    
 
 
 def find_max(weather_data):
@@ -80,7 +98,21 @@ def find_max(weather_data):
     Returns:
         The maximum value and it's position in the list. (In case of multiple matches, return the index of the *last* example in the list.)
     """
-    pass
+    maximum_index = 0
+    
+    if bool(weather_data):
+        maximum_value = float(weather_data[0])
+        index = 0
+    
+        for item in weather_data:
+            if float(item) >= float(maximum_value):
+                maximum_value = round(float(item), 1)
+                maximum_index = index
+            index += 1
+        return (maximum_value, maximum_index)
+    else:
+        maximum_value = ()
+        return maximum_value
 
 
 def generate_summary(weather_data):
@@ -103,3 +135,4 @@ def generate_daily_summary(weather_data):
         A string containing the summary information.
     """
     pass
+
