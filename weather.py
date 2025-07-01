@@ -13,7 +13,6 @@ def format_temperature(temp):
     Returns:
         A string contain the temperature and "degrees Celcius."
     """
-    DEGREE_SYMBOL = "\u00b0"
     return f"{temp}{DEGREE_SYMBOL}"
 
 
@@ -50,7 +49,16 @@ def calculate_mean(weather_data):
     Returns:
         A float representing the mean value.
     """
-    pass
+    total_count = 0
+    total_value = 0.0
+    if bool(weather_data):
+        for weather in weather_data:
+            total_value = total_value + float(weather)
+            total_count += 1
+        average = total_value / total_count
+        return average
+    else:
+        return None
 
 
 def load_data_from_csv(csv_file):
