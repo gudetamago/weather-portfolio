@@ -69,7 +69,17 @@ def load_data_from_csv(csv_file):
     Returns:
         A list of lists, where each sublist is a (non-empty) line in the csv file.
     """
-    pass
+    data = []
+    
+    with open(csv_file) as csv_file:    
+        csv_reader = csv.reader(csv_file)
+        next(csv_reader) # skip headers (first row)
+        for row in csv_reader:
+            if row:
+                row[1] = int(row[1])
+                row[2] = int(row[2])
+                data.append(row)
+    return data
 
 
 def find_min(weather_data):
