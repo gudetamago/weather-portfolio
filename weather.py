@@ -71,8 +71,8 @@ def load_data_from_csv(csv_file):
     """
     data = []
     
-    with open(csv_file) as csv_file:    
-        csv_reader = csv.reader(csv_file)
+    with open(csv_file) as csv_data:      
+        csv_reader = csv.reader(csv_data)
         next(csv_reader) # skip headers (first row)
         for row in csv_reader:
             if row:
@@ -139,10 +139,39 @@ def generate_summary(weather_data):
         A string containing the summary information.
     """
     total_days = len(weather_data)
+    list_of_mins = []
+    list_of_max = []
+    total_mins = 0.0
+    total_max = 0.0
+
+    # Do everything in Celcius
+    for day in weather_data:
+        list_of_mins.append( convert_f_to_c(day[1]))
+        list_of_max.append( convert_f_to_c(day[2]))
+        total_mins += convert_f_to_c(day[1])
+        total_max += convert_f_to_c(day[2])
     
-    for day, min, max in weather_data:
-        lowest_temp = find_min(day)
-    return lowest_temp
+    
+    lowest_temp = find_min(list_of_mins)
+    
+    display_min_temp = format_temperature(lowest_temp[0])
+    
+    date_lowest_temp = convert_date(weather_data[lowest_temp[1]][0])
+    highest_temp = find_max(list_of_max)
+    display_max_temp = format_temperature(highest_temp[0])
+    date_highest_temp = convert_date(weather_data[highest_temp[1]][0])
+    average_low = format_temperature(round(total_mins / total_days, 1))
+    average_high = format_temperature(round(total_max / total_days, 1))
+    
+    day_lowest_temp = convert_date( weather_data[lowest_temp[1]][0] )
+    day_highest_temp = convert_date( weather_data[highest_temp[1]][0] )
+
+    summary = f"{total_days} Day Overview\n"
+    summary += f"  The lowest temperature will be {display_min_temp}, and will occur on {date_lowest_temp}.\n"
+    summary += f"  The highest temperature will be {display_max_temp}, and will occur on {date_highest_temp}.\n"
+    summary += f"  The average low this week is {average_low}.\n"
+    summary += f"  The average high this week is {average_high}.\n"
+    return summary
 
 
 def generate_daily_summary(weather_data):
