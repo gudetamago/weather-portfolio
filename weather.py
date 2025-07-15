@@ -149,8 +149,9 @@ def generate_summary(weather_data):
     for day in weather_data:
         list_of_mins.append( convert_f_to_c(day[1]))
         list_of_max.append( convert_f_to_c(day[2]))
-        total_mins += convert_f_to_c(day[1])
-        total_max += convert_f_to_c(day[2])
+        
+    total_mins = sum(list_of_mins)
+    total_max = sum(list_of_max)
     
     
     lowest_temp = find_min(list_of_mins)
@@ -187,3 +188,4 @@ def generate_daily_summary(weather_data):
         max = format_temperature(convert_f_to_c(day[2]))
         summary = summary + "---- " + date + " ----\n  Minimum Temperature: " + min + "\n  Maximum Temperature: " + max + "\n\n"
     return summary
+
